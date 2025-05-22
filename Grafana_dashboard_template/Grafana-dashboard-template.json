@@ -1,0 +1,2002 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 18,
+    "links": [],
+    "panels": [
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 6,
+        "panels": [],
+        "title": "API requests count",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 0,
+          "y": 1
+        },
+        "id": 17,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> group(columns: [\"_measurement\"])\r\n  |> count()",
+            "refId": "A"
+          }
+        ],
+        "title": "Total request count",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "displayName": "INFO",
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 4,
+          "y": 1
+        },
+        "id": 19,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"level\"] == \"INF\" or r[\"level\"] == \"INFO\")\r\n  |> group(columns: [\"_measurement\", \"level\"])\r\n  |> count()",
+            "refId": "A"
+          }
+        ],
+        "title": "Message Level: INF - Count",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {}
+          }
+        ],
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "displayName": "WARNING",
+            "fieldMinMax": false,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "orange",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 8,
+          "y": 1
+        },
+        "id": 20,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"level\"] == \"WRN\" or r[\"level\"] == \"WARN\")\r\n  |> group(columns: [\"_measurement\", \"level\"])\r\n  |> count()",
+            "refId": "A"
+          }
+        ],
+        "title": "Message Level: WRN - Count",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {}
+          }
+        ],
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "displayName": "ERROR",
+            "fieldMinMax": false,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 12,
+          "y": 1
+        },
+        "id": 21,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"level\"] == \"ERROR\" or r[\"level\"] == \"ERR\")\r\n  |> group(columns: [\"_measurement\", \"level\"])\r\n  |> count()",
+            "refId": "A"
+          }
+        ],
+        "title": "Message Level: ERR - Count",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {}
+          }
+        ],
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 50
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 90
+                },
+                {
+                  "color": "dark-orange",
+                  "value": 100
+                },
+                {
+                  "color": "red",
+                  "value": 120
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 23,
+          "x": 0,
+          "y": 10
+        },
+        "id": 11,
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "horizontal",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> group(columns: [\"_measurement\", \"action\", \"_field\"])\r\n  |> count()\r\n  |> group()\r\n  |> sort(columns: [\"_value\"], desc: true)",
+            "refId": "A"
+          }
+        ],
+        "title": "P3 SMS API request count (By Action)",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "byVariable": false,
+              "include": {
+                "names": [
+                  "_start",
+                  "_stop",
+                  "_value",
+                  "action"
+                ]
+              }
+            }
+          }
+        ],
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 14,
+          "w": 23,
+          "x": 0,
+          "y": 20
+        },
+        "id": 28,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"action\"] =~ /.*${action}/)\r\n  |> group(columns: [\"_measurement\", \"action\"])\r\n  |> aggregateWindow(every: ${aggre_window}s, fn: count, createEmpty: true)",
+            "refId": "A"
+          }
+        ],
+        "title": "Action Requests Count, aggregation window: ${aggre_window}s",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "light-orange",
+                  "value": 50
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 90
+                },
+                {
+                  "color": "dark-orange",
+                  "value": 100
+                },
+                {
+                  "color": "semi-dark-red",
+                  "value": 120
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 23,
+          "x": 0,
+          "y": 34
+        },
+        "id": 16,
+        "options": {
+          "barRadius": 0,
+          "barWidth": 1,
+          "colorByField": "_value",
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "right",
+            "showLegend": true
+          },
+          "orientation": "horizontal",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"accode\"] != \"\")\r\n  |> group(columns: [\"_measurement\", \"accode\"])\r\n  |> count()\r\n  |> group()\r\n  |> sort(columns: [\"_value\"], desc: true)",
+            "refId": "A"
+          }
+        ],
+        "title": "Counter requests (by Accode), Accept value: `Greater than or equal to` ",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "accode",
+                  "_value"
+                ]
+              }
+            }
+          },
+          {
+            "id": "filterByValue",
+            "options": {
+              "filters": [
+                {
+                  "config": {
+                    "id": "greaterOrEqual",
+                    "options": {
+                      "value": "${ge}"
+                    }
+                  },
+                  "fieldName": "_value"
+                }
+              ],
+              "match": "any",
+              "type": "include"
+            }
+          }
+        ],
+        "type": "barchart"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 45
+        },
+        "id": 13,
+        "panels": [],
+        "title": "Query for accode: ${Accode}",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 0,
+          "y": 46
+        },
+        "id": 24,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> group(columns: [\"_measurement\", \"accode\"])\r\n  |> count()\r\n  |> yield(name: \"count\")",
+            "refId": "A"
+          }
+        ],
+        "title": "Total request count",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "displayName": "INF",
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 4,
+          "y": 46
+        },
+        "id": 25,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> filter(fn: (r) => r[\"level\"] == \"INF\" or r[\"level\"] == \"INFO\")\r\n  |> group(columns: [\"_measurement\", \"accode\"])\r\n  |> count()\r\n  |> yield(name: \"count\")",
+            "refId": "A"
+          }
+        ],
+        "title": "Message Level: INF - Count",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {}
+          }
+        ],
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "displayName": "WARNING",
+            "fieldMinMax": false,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "orange",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 8,
+          "y": 46
+        },
+        "id": 26,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> filter(fn: (r) => r[\"level\"] == \"WARN\" or r[\"level\"] == \"WRN\")\r\n  |> group(columns: [\"_measurement\", \"accode\"])\r\n  |> count()\r\n  |> yield(name: \"count\")",
+            "refId": "A"
+          }
+        ],
+        "title": "Message Level: WRN - Count",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {}
+          }
+        ],
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "displayName": "ERROR",
+            "fieldMinMax": false,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 4,
+          "x": 12,
+          "y": 46
+        },
+        "id": 27,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"level\"] == \"ERROR\" or r[\"level\"] == \"ERR\")\r\n  |> group(columns: [\"_measurement\", \"accode\"])\r\n  |> count()\r\n  |> yield(name: \"count\")",
+            "refId": "A"
+          }
+        ],
+        "title": "Message Level: ERR - Count",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {}
+          }
+        ],
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "displayName": "-",
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 50
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 23,
+          "x": 0,
+          "y": 55
+        },
+        "id": 14,
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "horizontal",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          },
+          "xField": "action",
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"${DistinctFieldNameAnchor}\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> group(columns: [\"_measurement\", \"accode\", \"action\"])\r\n  |> count()\r\n  |> group()\r\n  |> sort(columns: [\"_value\"], desc: true)",
+            "refId": "A"
+          }
+        ],
+        "title": "API request count group by action, Accode: ${Accode}",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "displayName": "-",
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 50
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 23,
+          "x": 0,
+          "y": 63
+        },
+        "id": 15,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> filter(fn: (r) => r[\"action\"] =~ /.*${action}/)\r\n  |> aggregateWindow(\r\n    every: ${aggre_window}s,\r\n    fn: (column, tables=<-) => tables |> count(),\r\n    createEmpty: true\r\n  )",
+            "refId": "A"
+          }
+        ],
+        "title": "API request count group by action, Accode: ${Accode}, aggregation window: ${aggre_window}s",
+        "transformations": [
+          {
+            "id": "renameByRegex",
+            "options": {
+              "regex": "duration_ms {.*action=\"(.*)\",.*}",
+              "renamePattern": "$1"
+            }
+          }
+        ],
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "displayName": "-",
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 50
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 23,
+          "x": 0,
+          "y": 71
+        },
+        "id": 18,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "hide": false,
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> filter(fn: (r) => r[\"action\"] =~ /.*${action}/)\r\n  |> group(columns: [\"_measurement\", \"_field\", \"accode\", \"action\"])\r\n  |> aggregateWindow(every: ${aggre_window}s, fn: mean, createEmpty: false)",
+            "refId": "A"
+          }
+        ],
+        "title": "Avg. response time, Accode: ${Accode}, aggregation window: ${aggre_window}s",
+        "transformations": [
+          {
+            "id": "renameByRegex",
+            "options": {
+              "regex": ".*action=\"(.*)\"}",
+              "renamePattern": "$1"
+            }
+          }
+        ],
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "displayName": "-",
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 50
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 11,
+          "x": 0,
+          "y": 79
+        },
+        "id": 22,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "hide": false,
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> filter(fn: (r) => r[\"action\"] =~ /.*${action}/)\r\n  |> group(columns: [\"_measurement\", \"_field\", \"accode\", \"action\"])\r\n  |> aggregateWindow(every: ${aggre_window}s, fn: min, createEmpty: false)",
+            "refId": "A"
+          }
+        ],
+        "title": "Min. response time, Accode: ${Accode}, aggregation window: ${aggre_window}s",
+        "transformations": [
+          {
+            "id": "renameByRegex",
+            "options": {
+              "regex": ".*action=\"(.*)\"}",
+              "renamePattern": "$1"
+            }
+          }
+        ],
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "uid": "begvylirh0ge8a"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "displayName": "-",
+            "fieldMinMax": false,
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 50
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 11,
+          "y": 79
+        },
+        "id": 23,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.5.2",
+        "targets": [
+          {
+            "hide": false,
+            "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> filter(fn: (r) => r[\"accode\"] == \"${Accode}\")\r\n  |> filter(fn: (r) => r[\"action\"] =~ /.*${action}/)\r\n  |> group(columns: [\"_measurement\", \"_field\", \"accode\", \"action\"])\r\n  |> aggregateWindow(every: ${aggre_window}s, fn: max, createEmpty: false)",
+            "refId": "A"
+          }
+        ],
+        "title": "Max. response time, Accode: ${Accode}, aggregation window: ${aggre_window}s",
+        "transformations": [
+          {
+            "id": "renameByRegex",
+            "options": {
+              "regex": ".*action=\"(.*)\"}",
+              "renamePattern": "$1"
+            }
+          }
+        ],
+        "type": "timeseries"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 87
+        },
+        "id": 5,
+        "panels": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "barWidthFactor": 0.6,
+                  "drawStyle": "line",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "insertNulls": false,
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 12,
+              "w": 23,
+              "x": 0,
+              "y": 88
+            },
+            "id": 10,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom",
+                "showLegend": true
+              },
+              "tooltip": {
+                "hideZeros": false,
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "11.5.2",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "begvylirh0ge8a"
+                },
+                "hide": false,
+                "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> filter(fn: (r) => r[\"action\"] =~ /.*${action}/)\r\n  |> group(columns: [\"_measurement\", \"action\"])\r\n  |> aggregateWindow(every: ${aggre_window}s, fn: mean, createEmpty: false)",
+                "refId": "A"
+              }
+            ],
+            "title": "Average of response time by Action (ms)",
+            "transformations": [
+              {
+                "id": "renameByRegex",
+                "options": {
+                  "regex": "_value (.*)",
+                  "renamePattern": "$1"
+                }
+              }
+            ],
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "fillOpacity": 80,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 1,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 12,
+              "w": 23,
+              "x": 0,
+              "y": 100
+            },
+            "id": 29,
+            "options": {
+              "barRadius": 0,
+              "barWidth": 0.97,
+              "fullHighlight": false,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom",
+                "showLegend": true
+              },
+              "orientation": "horizontal",
+              "showValue": "auto",
+              "stacking": "none",
+              "tooltip": {
+                "hideZeros": false,
+                "mode": "single",
+                "sort": "none"
+              },
+              "xTickLabelRotation": 0,
+              "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "11.5.2",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "begvylirh0ge8a"
+                },
+                "hide": false,
+                "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> group(columns: [\"_measurement\", \"action\"])\r\n  |> mean()\r\n  |> group()\r\n  |> sort(columns: [\"_value\"], desc: true)",
+                "refId": "A"
+              }
+            ],
+            "title": "Average of response time by Action (ms)",
+            "transformations": [
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": [
+                      "action",
+                      "_value"
+                    ]
+                  }
+                }
+              }
+            ],
+            "type": "barchart"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "fillOpacity": 80,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 1,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 12,
+              "w": 12,
+              "x": 0,
+              "y": 112
+            },
+            "id": 30,
+            "options": {
+              "barRadius": 0,
+              "barWidth": 0.97,
+              "fullHighlight": false,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom",
+                "showLegend": true
+              },
+              "orientation": "horizontal",
+              "showValue": "auto",
+              "stacking": "none",
+              "tooltip": {
+                "hideZeros": false,
+                "mode": "single",
+                "sort": "none"
+              },
+              "xTickLabelRotation": 0,
+              "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "11.5.2",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "begvylirh0ge8a"
+                },
+                "hide": false,
+                "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> group(columns: [\"_measurement\", \"action\"])\r\n  |> min()\r\n  |> group()\r\n  |> sort(columns: [\"_value\"], desc: true)",
+                "refId": "A"
+              }
+            ],
+            "title": "Min of response time by Action (ms)",
+            "transformations": [
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": [
+                      "action",
+                      "_value"
+                    ]
+                  }
+                }
+              }
+            ],
+            "type": "barchart"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "begvylirh0ge8a"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "axisBorderShow": false,
+                  "axisCenteredZero": false,
+                  "axisColorMode": "text",
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "fillOpacity": 80,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 1,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 12,
+              "w": 11,
+              "x": 12,
+              "y": 112
+            },
+            "id": 31,
+            "options": {
+              "barRadius": 0,
+              "barWidth": 0.97,
+              "fullHighlight": false,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom",
+                "showLegend": true
+              },
+              "orientation": "horizontal",
+              "showValue": "auto",
+              "stacking": "none",
+              "tooltip": {
+                "hideZeros": false,
+                "mode": "single",
+                "sort": "none"
+              },
+              "xTickLabelRotation": 0,
+              "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "11.5.2",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "begvylirh0ge8a"
+                },
+                "hide": false,
+                "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"${measurement}\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"duration_ms\")\r\n  |> group(columns: [\"_measurement\", \"action\"])\r\n  |> max()\r\n  |> group()\r\n  |> sort(columns: [\"_value\"], desc: true)",
+                "refId": "A"
+              }
+            ],
+            "title": "Max of response time by Action (ms)",
+            "transformations": [
+              {
+                "id": "filterFieldsByName",
+                "options": {
+                  "include": {
+                    "names": [
+                      "action",
+                      "_value"
+                    ]
+                  }
+                }
+              }
+            ],
+            "type": "barchart"
+          }
+        ],
+        "title": "Average response time statistics",
+        "type": "row"
+      }
+    ],
+    "preload": false,
+    "refresh": "",
+    "schemaVersion": 40,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "text": "P586293",
+            "value": "P586293"
+          },
+          "description": "",
+          "label": "Accode",
+          "name": "Accode",
+          "options": [
+            {
+              "selected": true,
+              "text": "P586293",
+              "value": "P586293"
+            }
+          ],
+          "query": "P586293",
+          "type": "textbox"
+        },
+        {
+          "current": {
+            "text": "60",
+            "value": "60"
+          },
+          "description": "The aggregate window",
+          "label": "aggre_window(seconds)",
+          "name": "aggre_window",
+          "options": [
+            {
+              "selected": true,
+              "text": "60",
+              "value": "60"
+            }
+          ],
+          "query": "60",
+          "type": "textbox"
+        },
+        {
+          "current": {
+            "text": "110",
+            "value": "110"
+          },
+          "label": "Greater than or equal to",
+          "name": "ge",
+          "options": [
+            {
+              "selected": true,
+              "text": "110",
+              "value": "110"
+            }
+          ],
+          "query": "110",
+          "type": "textbox"
+        },
+        {
+          "current": {
+            "text": "",
+            "value": ""
+          },
+          "description": "Action name as RegEx to filter actions",
+          "label": "Action(RegEx without special chars)",
+          "name": "action",
+          "options": [
+            {
+              "selected": true,
+              "text": "",
+              "value": ""
+            }
+          ],
+          "query": "",
+          "type": "textbox"
+        },
+        {
+          "current": {
+            "text": "parameters",
+            "value": "parameters"
+          },
+          "description": "",
+          "hide": 2,
+          "label": "field name anchor",
+          "name": "DistinctFieldNameAnchor",
+          "query": "parameters",
+          "skipUrlSync": true,
+          "type": "constant"
+        },
+        {
+          "current": {
+            "text": "P3_SMS_API_application_logs_test",
+            "value": "P3_SMS_API_application_logs_test"
+          },
+          "label": "Choose measurement",
+          "name": "measurement",
+          "options": [
+            {
+              "selected": true,
+              "text": "P3_SMS_API_application_logs_test",
+              "value": "P3_SMS_API_application_logs_test"
+            },
+            {
+              "selected": false,
+              "text": "P3_API_application_logs_test",
+              "value": "P3_API_application_logs_test"
+            }
+          ],
+          "query": "P3_SMS_API_application_logs_test,P3_API_application_logs_test",
+          "type": "custom"
+        },
+        {
+          "current": {
+            "text": "API-Log-Analysis-Parser-test4",
+            "value": "API-Log-Analysis-Parser-test4"
+          },
+          "description": "",
+          "label": "Choose bucket",
+          "name": "bucket",
+          "options": [
+            {
+              "selected": false,
+              "text": "API-Log-Analysis-Parser-test",
+              "value": "API-Log-Analysis-Parser-test"
+            },
+            {
+              "selected": false,
+              "text": "API-Log-Analysis-Parser-test2",
+              "value": "API-Log-Analysis-Parser-test2"
+            },
+            {
+              "selected": true,
+              "text": "API-Log-Analysis-Parser-test4",
+              "value": "API-Log-Analysis-Parser-test4"
+            }
+          ],
+          "query": "API-Log-Analysis-Parser-test,API-Log-Analysis-Parser-test2,API-Log-Analysis-Parser-test4",
+          "type": "custom"
+        }
+      ]
+    },
+    "time": {
+      "from": "2025-05-19T02:25:22.705Z",
+      "to": "2025-05-19T05:07:15.142Z"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "API Log Analysis Dashboard Template",
+    "uid": "999a64e3-ed2d-49c5-4567-90dadf66eb45",
+    "version": 7,
+    "weekStart": ""
+  }
