@@ -16,7 +16,10 @@ on:
 
 jobs:
   analyze:
-
+    permissions:
+          actions: read  # Required for telemetry
+          security-events: write  # Required for code scanning
+          contents: read  # For code checkout
     name: analyze
     runs-on: ubuntu-latest
 
