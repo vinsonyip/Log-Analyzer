@@ -11,3 +11,5 @@ The log parser will parse the raw log to InfluxDB readable format, so we can vis
 1. Fatal exception recovery (process log from the last breaking line)
 2. Parse more than one log files (Multithreaded)
 3. Console app UI (i.e. basic function interaction, progress bar..)
+
+[![CodeQL](https://github.com/vinsonyip/Log-Analyzer/actions/workflows/csharpCodeQLCheck.yml/badge.svg)](https://github.com/vinsonyip/Log-Analyzer/actions/workflows/csharpCodeQLCheck.yml)
