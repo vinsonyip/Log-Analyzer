@@ -16,6 +16,7 @@ namespace API_log_analysis_project.Entities.Configs
         public string OrgId { get; set; }
         public string Bucket { get; set; }
         public bool IsEnabled { get; set; }
+        public int InfluxDBVersion{ get; set; }
 
         private InfluxDBConfig()
         {
@@ -24,13 +25,13 @@ namespace API_log_analysis_project.Entities.Configs
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            InfluxUrl = config["InfluxDBConfig:InfluxUrl"];
-            Token = config["InfluxDBConfig:InfluxToken"];
-            Org = config["InfluxDBConfig:Org"];
-            OrgId = config["InfluxDBConfig:OrgId"];
-            Bucket = config["InfluxDBConfig:Bucket"];
-            IsEnabled = bool.Parse(config["InfluxDBConfig:IsEnabled"]);
-
+            InfluxUrl = config["InfluxDBConfig:InfluxUrl"] ?? "";
+            Token = config["InfluxDBConfig:InfluxToken"] ?? "";
+            Org = config["InfluxDBConfig:Org"] ?? "";
+            OrgId = config["InfluxDBConfig:OrgId"] ?? "";
+            Bucket = config["InfluxDBConfig:Bucket"] ?? "";
+            IsEnabled = bool.Parse(config["InfluxDBConfig:IsEnabled"] ?? "false");
+            InfluxDBVersion = int.Parse(config["InfluxDBConfig:InfluxDBVersion"] ?? "false");
         }
 
         public static InfluxDBConfig GetInstance()

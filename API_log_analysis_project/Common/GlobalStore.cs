@@ -17,13 +17,15 @@ namespace API_log_analysis_project.Common
 
         public static readonly string InfluxDB_P3SMSAPILogMeasureName = "P3_SMS_API_application_logs_test";
         public static readonly string InfluxDB_P3APILogMeasureName = "P3_API_application_logs_test";
+        public static readonly string InfluxDB_SGNGINXLogMeasureName = "SG_NGINX_logs_test";
+
         public static void ResetGlobalRootDirPath()
         {
             _rootDirPath = _defaultDirPath;
             ReportDirPath = Path.Combine(_rootDirPath, "reports");
             ParsingResultOutputDirPath = Path.Combine(_rootDirPath, "output");
         }
-
+         
         public static bool SetGlobalRootDirPath(string rootDirPath)
         {
             try
@@ -43,7 +45,7 @@ namespace API_log_analysis_project.Common
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

@@ -179,14 +179,17 @@ namespace API_log_analysis_project.Trackers
             int index = 0;
             foreach (LogProfile profile in logProfileToSync)
             {
-                if (logNameToProfileMapForUpdate.TryGetValue(profile.LogName, out LogProfile existingLogProfile))
+                if (logNameToProfileMapForUpdate.TryGetValue(profile.LogName, out LogProfile? existingLogProfile))
                 {
-                    // LogParser, LogFilter and LogGrouper will not export to report, so we need to assign it to existing profile object in runtime
-                    existingLogProfile.LogParser = profile.LogParser;
-                    existingLogProfile.LogFilter = profile.LogFilter;
-                    existingLogProfile.LogGrouper = profile.LogGrouper;
+                    if(existingLogProfile != null)
+                    {
+                        // LogParser, LogFilter and LogGrouper will not export to report, so we need to assign it to existing profile object in runtime
+                        existingLogProfile.LogParser = profile.LogParser;
+                        existingLogProfile.LogFilter = profile.LogFilter;
+                        existingLogProfile.LogGrouper = profile.LogGrouper;
 
-                    logProfileToBeProcessed.Add(existingLogProfile);
+                        logProfileToBeProcessed.Add(existingLogProfile);
+                    }
                 }
                 else // For the log profile can't be found from the `updatedLogProfile` dictionary
                 {

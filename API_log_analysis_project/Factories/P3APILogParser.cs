@@ -54,9 +54,11 @@ namespace API_log_analysis_project.Factories
             var logDataPoint = parse(rawLog);
             if(logFilter == null) return logDataPoint;
 
-            P3APILogFilter p3APILogFilter = logFilter as P3APILogFilter;
+            P3APILogFilter? p3APILogFilter = logFilter as P3APILogFilter;
 
-            if (p3APILogFilter.execute(logDataPoint)) return logDataPoint;
+            if (p3APILogFilter != null 
+                && logDataPoint != null 
+                && p3APILogFilter.execute(logDataPoint)) return logDataPoint;
 
             return null;
         }

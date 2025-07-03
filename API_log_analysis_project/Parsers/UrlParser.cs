@@ -25,7 +25,8 @@ namespace API_log_analysis_project.Parsers
         /// <param name="apiAction"></param>
         /// <returns></returns>
 
-        public string parse(ref string logEntry)
+        
+        public override string parse(ref string logEntry)
         {
             foreach (string pattern in Patterns)
             {

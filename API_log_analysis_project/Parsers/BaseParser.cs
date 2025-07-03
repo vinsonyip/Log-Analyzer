@@ -18,7 +18,7 @@ namespace API_log_analysis_project.Parsers
         /// </summary>
         /// <param name="logEntry"></param>
         /// <returns></returns>
-        public string parse(ref string logEntry)
+        public virtual string parse(ref string logEntry)
         {
             string result = "";
             foreach (var pattern in Patterns)

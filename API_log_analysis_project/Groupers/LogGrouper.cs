@@ -53,17 +53,17 @@ namespace API_log_analysis_project.Groupers
             else
             {
                 // Even if the log data point is null, we still need to count the offset of line read
-                string key = logGroups.Keys.FirstOrDefault();
+                string? key = logGroups.Keys.FirstOrDefault();
                 // We choose one of the log group to put the null record inside, just to count the offset
                 if (key != null)
                 {
                     logGroups[key].GroupItemCumCount += 1;
                 }
-                else
-                {
-                    PopPreviousLogRecordToFlushList();
-                    logGroups.Add("Unknown", new LogDataPoint());
-                }
+                //else
+                //{
+                //    PopPreviousLogRecordToFlushList();
+                //    logGroups.Add("Unknown", new LogDataPoint());
+                //}
             }
 
         }
@@ -75,7 +75,9 @@ namespace API_log_analysis_project.Groupers
             {
                 keysToBeDeleted.Add(key);
                 LogDataPoint logDP = logGroups[key];
-                var point = PointData.Measurement(GlobalStore.InfluxDB_P3APILogMeasureName)
+                if(logDP.Timestamp != null)
+                {
+                    var point = PointData.Measurement(GlobalStore.InfluxDB_P3APILogMeasureName)
                     .Tag("level", logDP.Level)
                     .Tag("accode", logDP.Accode)
                     .Tag("status_code", logDP.StatusCode)
@@ -83,12 +85,13 @@ namespace API_log_analysis_project.Groupers
                     .Tag("action", logDP.Action)
                     .Field("http_method", logDP.Method)
                     .Field("duration_ms", logDP.DurationMs)
-                //.Field("url", logDP.Url)
+                    //.Field("url", logDP.Url)
                     .Field("parameters", logDP.Parameters)
                     .Timestamp((DateTime)logDP.Timestamp, WritePrecision.Ms);
 
-                flushList.Add(point);
-                flushListSource.Add(logDP);
+                    flushList.Add(point);
+                    flushListSource.Add(logDP);
+                }
             }
 
             foreach (var key in keysToBeDeleted)

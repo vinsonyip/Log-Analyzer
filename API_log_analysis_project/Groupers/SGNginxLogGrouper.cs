@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace API_log_analysis_project.Groupers
 {
-    public class P3SMSAPILogGrouper: LogGrouper
+    public class SGNginxLogGrouper : LogGrouper
     {
         protected override void PopPreviousLogRecordToFlushList()
         {
@@ -20,24 +20,23 @@ namespace API_log_analysis_project.Groupers
             {
                 keysToBeDeleted.Add(key);
                 LogDataPoint logDP = logGroups[key];
-                if(logDP.Timestamp != null)
+                if (logDP.Timestamp != null)
                 {
-                    var point = PointData.Measurement(GlobalStore.InfluxDB_P3SMSAPILogMeasureName)
-                    .Tag("level", logDP.Level)
-                    .Tag("accode", logDP.Accode)
-                    .Tag("status_code", logDP.StatusCode)
-                    .Tag("base_url", logDP.BaseUrl)
-                    .Tag("action", logDP.Action)
-                    .Field("http_method", logDP.Method)
-                    .Field("duration_ms", logDP.DurationMs)
-                    //.Field("url", logDP.Url)
-                    .Field("parameters", logDP.Parameters)
-                    .Timestamp((DateTime)logDP.Timestamp, WritePrecision.Ms);
+                    var point = PointData.Measurement(GlobalStore.InfluxDB_SGNGINXLogMeasureName)
+                        //.Tag("level", logDP.Level)
+                        //.Tag("accode", logDP.Accode)
+                        .Tag("status_code", logDP.StatusCode)
+                        //.Tag("base_url", logDP.BaseUrl)
+                        .Tag("action", logDP.Action)
+                        //.Field("http_method", logDP.Method)
+                        .Field("duration_ms", logDP.DurationMs)
+                        //.Field("url", logDP.Url)
+                        .Field("parameters", logDP.Parameters)
+                        .Timestamp((DateTime)logDP.Timestamp, WritePrecision.Ms);
 
                     flushList.Add(point);
                     flushListSource.Add(logDP);
                 }
-               
             }
 
             foreach (var key in keysToBeDeleted)

@@ -3,9 +3,9 @@ using API_log_analysis_project.Groupers;
 
 namespace API_log_analysis_project.Factories
 {
-    public enum ParserName { P3_API_Parser, P3_SMS_API_Parser }
-    public enum FilterName { P3_API_Filter, P3_SMS_API_Filter }
-    public enum GrouperName { P3_API_Grouper, P3_SMS_API_Grouper }
+    public enum ParserName { P3_API_Parser, P3_SMS_API_Parser, SG_NGINX_LOG_Parser }
+    public enum FilterName { P3_API_Filter, P3_SMS_API_Filter, SG_NGINX_LOG_Filter }
+    public enum GrouperName { P3_API_Grouper, P3_SMS_API_Grouper, SG_NGINX_LOG_Grouper }
     public class GlobalFactory
     {
         /// <summary>
@@ -23,6 +23,9 @@ namespace API_log_analysis_project.Factories
                     break;
                 case ParserName.P3_SMS_API_Parser:
                     logParser = new P3SMSAPILogParser();
+                    break;
+                case ParserName.SG_NGINX_LOG_Parser:
+                    logParser = new SGNginxLogParser();
                     break;
                 default:
                     logParser = new P3APILogParser();
@@ -49,6 +52,9 @@ namespace API_log_analysis_project.Factories
                 case FilterName.P3_SMS_API_Filter:
                     logFilter = new P3SMSAPILogFilter();
                     break;
+                case FilterName.SG_NGINX_LOG_Filter:
+                    logFilter = new SGNginxLogFilter();
+                    break;
                 default:
                     logFilter = new P3APILogFilter();
                     break;
@@ -73,6 +79,9 @@ namespace API_log_analysis_project.Factories
                     break;
                 case GrouperName.P3_SMS_API_Grouper:
                     logGrouper = new P3SMSAPILogGrouper();
+                    break;
+                case GrouperName.SG_NGINX_LOG_Grouper:
+                    logGrouper = new SGNginxLogGrouper();
                     break;
                 default:
                     logGrouper = new P3APILogGrouper();

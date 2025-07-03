@@ -45,8 +45,7 @@ namespace API_log_analysis_project.Factories
                     var accodeSplit = baseUrlSplit[1].Split("/");
                     if (accodeSplit.Length >= 1) accode = accodeSplit[0];
                 }
-
-                baseUrl = baseUrl.Replace(accode, "{{Account}}");
+                if(accode != null && accode.Length > 0) baseUrl = baseUrl.Replace(accode, "{{Account}}");
             }
             else
             {
@@ -67,7 +66,7 @@ namespace API_log_analysis_project.Factories
 
             return new LogDataPoint
             {
-                Accode = accode,
+                Accode = accode ?? "",
                 Timestamp = timestamp,
                 Level = logFieldSplit[3].Substring(1, 3),
                 Protocol = logFieldSplit[6],
@@ -106,7 +105,6 @@ namespace API_log_analysis_project.Factories
                 //Accode = accodeStr,
             };
         }
-
         public LogDataPoint? parse(string rawLog, ILogFilter? logFilter = null)
         {
             // Todo: Need to impl the log filter feature here

@@ -1,5 +1,6 @@
 ﻿using API_log_analysis_project.Common;
 using API_log_analysis_project.Common.UI;
+using API_log_analysis_project.DBWriters;
 using API_log_analysis_project.Entities;
 using API_log_analysis_project.Factories;
 using API_log_analysis_project.Filters;
@@ -13,10 +14,11 @@ namespace API_log_analysis_project
 
 
         private LogParsingTracker _tracker;
-
+        private IDBWriter _dbWriter = new DBWriterV2();
         public ConsoleInteraction(LogParsingTracker tracker)
         {
             _tracker = tracker;
+            _dbWriter = new DBWriterV2();
         }
 
         public LogParsingTracker GetLogParsingTracker()
@@ -174,7 +176,15 @@ namespace API_log_analysis_project
                     logProfile.LogFilter = GlobalFactory.GetFilter(FilterName.P3_SMS_API_Filter);
                     logProfile.LogGrouper = GlobalFactory.GetGrouper(GrouperName.P3_SMS_API_Grouper);
                 }
-                else { 
+                else if (logProfile.LogName.Contains(@"sg-nginx"))
+                {
+                    logProfile.Parser = ParserName.SG_NGINX_LOG_Parser;
+                    logProfile.LogParser = GlobalFactory.GetParser(ParserName.SG_NGINX_LOG_Parser);
+                    logProfile.LogFilter = GlobalFactory.GetFilter(FilterName.SG_NGINX_LOG_Filter);
+                    logProfile.LogGrouper = GlobalFactory.GetGrouper(GrouperName.SG_NGINX_LOG_Grouper);
+                }
+                else
+                {
                     logProfile.Parser = ParserName.P3_SMS_API_Parser;
                     logProfile.LogParser = GlobalFactory.GetParser(ParserName.P3_SMS_API_Parser);
                     logProfile.LogFilter = GlobalFactory.GetFilter(FilterName.P3_SMS_API_Filter);
@@ -217,12 +227,12 @@ namespace API_log_analysis_project
                 Console.WriteLine("Writing to InfluxDB now ...");
             }
            
-            await DBWriter.CheckAndCreateBucketIfNotExist();
+            await _dbWriter.CheckAndCreateBucketIfNotExist();
 
             for (int i = 0; i < _tracker.GetLogProfiles().Count; i++)
             {
                 LogProfile logProfile = _tracker.GetLogProfiles()[i];
-                DBWriter tmpDBWriter = new DBWriter();
+                //DBWriterV2 tmpDBWriter = new DBWriterV2();
                 //ILogParser logParser = GlobalFactory.GetParser(logProfile.Parser);
                 //ILogFilter logFilter = new P3APILogFilter { IsCollectRequestLog = true, IsCollectResponseLog = false };
                 //ILogGrouper logGrouper = new P3APILogGrouper();
@@ -230,11 +240,11 @@ namespace API_log_analysis_project
                 //processingTasks[i] = tmpDBWriter.WriteLogToTxtAsync(logProfile, logParser, logFilter, logGrouper, _tracker);
                 if(isWriteToTxt)
                 {
-                    processingTasks[i] = tmpDBWriter.WriteLogToTxtAsync(logProfile, _tracker);
+                    processingTasks[i] = _dbWriter.WriteLogToTxtAsync(logProfile, _tracker);
                 }
                 else
                 {
-                    processingTasks[i] = tmpDBWriter.WriteLogToInfluxDBAsync(logProfile, _tracker);
+                    processingTasks[i] = _dbWriter.WriteLogToInfluxDBAsync(logProfile, _tracker);
                 }
                 
             }
@@ -243,7 +253,6 @@ namespace API_log_analysis_project
 
             return logProfileResult;
         }
-
 
         public static bool UserTrueFalseInteraction(string message)
         {
