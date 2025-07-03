@@ -70,7 +70,7 @@ internal class Program
                 {
                     break;
                 }
-                else Console.WriteLine("[WARN] Can't recognize the symbol, please input again...\n");
+                else Console.WriteLine("[WARN] Can't recognize the symbol, please input again....\n");
             }
 
             ci.GetLogParsingTracker().SetMessageToReport("Success");
