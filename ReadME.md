@@ -13,3 +13,4 @@ The log parser will parse the raw log to InfluxDB readable format, so we can vis
 3. Console app UI (i.e. basic function interaction, progress bar..)
 
 [![CodeQL](https://github.com/vinsonyip/Log-Analyzer/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/vinsonyip/Log-Analyzer/actions/workflows/github-code-scanning/codeql)
+[![.NET](https://github.com/vinsonyip/Log-Analyzer/actions/workflows/dotnet.yml/badge.svg)](https://github.com/vinsonyip/Log-Analyzer/actions/workflows/dotnet.yml)
